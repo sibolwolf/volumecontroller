@@ -2,7 +2,6 @@ package led
 
 import (
     "fmt"
-    "io/ioutil"
     "os/exec"
 )
 
@@ -14,15 +13,38 @@ fun_led0/  fun_led1/  net_led/   vol_led0/  vol_led1/  vol_led2/
 brightness max_brightness
 */
 
+type LedAtt struct {
+    brightness      int
+    max_brightness  int
+}
+
+/*
+LedName := []string{
+    "fun_led0",
+    "fun_led1",
+    "net_led",
+    "vol_led0",
+    "vol_led1",
+    "vol_led2",
+*/
+func GenFilename(led string) {
+    fmt.Println("Gen filename ...")
+}
 
 func GetLedStatus(filename string) {
-    fmt.Println("Get the status ")
-    cmd := exec.Command("/bin/ash", "-c", "cat filename")
-    stdout, err := cmd.StdoutPipe()
+    fmt.Println("Get the vol_ledx status ...")
+    cmdGet := "cat" + " " + filename
+    cmd := exec.Command("/bin/sh", "-c", cmdGet)
+    bytes, err := cmd.Output()
     if err != nil {
-        fmt.Println("StdoutPipe: " + err.Error())
+        fmt.Println("outputerr: " + err.Error())
         return
     }
-    bytes, err := ioutil.ReadAll(stdout)
-    fmt.Println("stdout: %s", bytes)
+
+    fmt.Println(filename +" status is: " + string(bytes))
+}
+
+func SetLed(filename string, value int) {
+    fmt.Println("Set ledx with new value ...")
+
 }

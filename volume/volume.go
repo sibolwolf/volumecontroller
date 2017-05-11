@@ -2,30 +2,29 @@ package volume
 
 import (
     "fmt"
-    "io/ioutil"
     "os/exec"
 )
 
 
 func GetVolumeStatus() {
-    fmt.Println("Get the status ")
-    cmd := exec.Command("/bin/ash", "-c", "amixer sget 'speaker volume control'")
-    stdout, err := cmd.StdoutPipe()
+    fmt.Println("Get the volume status ... ")
+    cmd := exec.Command("/bin/sh", "-c", "amixer sget 'speaker volume control'")
+    bytes, err := cmd.Output()
     if err != nil {
-        fmt.Println("StdoutPipe: " + err.Error())
+        fmt.Println("outputerr: " + err.Error())
         return
     }
-    bytes, err := ioutil.ReadAll(stdout)
-    fmt.Println("stdout: %s", bytes)
+    fmt.Println(string(bytes))
 }
 
 func SetVolume(value string) {
-    fmt.Println("Get the status ")
+    fmt.Println("Set the volume ...")
     cmdSet := fmt.Sprintf("amixer sset 'speaker volume control' %s", value)
-    cmd := exec.Command("/bin/ash", "-c", cmdSet)
-    _, err := cmd.StdoutPipe()
+    cmd := exec.Command("/bin/sh", "-c", cmdSet)
+    bytes, err := cmd.Output()
     if err != nil {
-        fmt.Println("StdoutPipe: " + err.Error())
+        fmt.Println("outputerr: " + err.Error())
         return
     }
+    fmt.Println(string(bytes))
 }
