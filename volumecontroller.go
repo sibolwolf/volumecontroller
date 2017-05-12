@@ -13,8 +13,8 @@ import (
 var curvolclass string
 
 func Init() {
-    curvolclass := VOL.GetVolumeClass()
-    fmt.Println(curvolclass)
+    curvolclass = VOL.GetVolumeClass()
+    // fmt.Println(curvolclass)
     switch curvolclass {
     case "class0":
         LED.UpdateLed(0)
@@ -30,6 +30,30 @@ func Init() {
 
 }
 
+func UpdateVol() {
+    if curvolclass == "class0" {
+        curvolclass = "class1"
+        VOL.SetVolumeClass(curvolclass)
+        LED.UpdateLed(1)
+    } else if curvolclass == "class1" {
+        curvolclass = "class2"
+        VOL.SetVolumeClass(curvolclass)
+        LED.UpdateLed(2)
+    } else if curvolclass == "class2" {
+        curvolclass = "class3"
+        VOL.SetVolumeClass(curvolclass)
+        LED.UpdateLed(3)
+    } else if curvolclass == "class3" {
+        curvolclass = "class0"
+        VOL.SetVolumeClass(curvolclass)
+        LED.UpdateLed(0)
+    } else {
+        curvolclass = "class0"
+        VOL.SetVolumeClass(curvolclass)
+        LED.UpdateLed(0)
+    }
+}
+
 func main() {
     fmt.Println("Hello, VolumeController")
 
@@ -37,8 +61,10 @@ func main() {
 
     KEY.Connect("readingangel")
     KEY.GetButton("volume").OnPress(func() {
-            fmt.Println("RA got a short key press event")
+            fmt.Println("RA got a short key press event for volume")
+            UpdateVol()
         })
+
     signalChanel := make(chan os.Signal, 1)
 	signal.Notify(signalChanel, os.Interrupt)
 	for {

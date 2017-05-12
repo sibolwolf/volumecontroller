@@ -35,10 +35,6 @@ func SetVolume(value string) {
 
 func GetVolumeClass() string {
     currvol := GetVolumeStatus()
-    // fmt.Printf("%T\n", currvol)
-    // fmt.Println(currvol)
-    // currvol = strings.Replace(currvol, "\n", "", -1)
-    // currvol = strings.Replace(currvol, "\n", "", -1)
     currvol = strings.TrimSpace(currvol)
     fmt.Println(currvol)
     switch currvol {
@@ -57,5 +53,20 @@ func GetVolumeClass() string {
     default:
         fmt.Println(vollevel[3])
         return volclass[0]
+    }
+}
+
+func SetVolumeClass(vol string) {
+    switch vol {
+    case volclass[0]:
+        SetVolume(vollevel[0])
+    case volclass[1]:
+        SetVolume(vollevel[1])
+    case volclass[2]:
+        SetVolume(vollevel[2])
+    case volclass[3]:
+        SetVolume(vollevel[3])
+    default:
+        SetVolume(vollevel[0])
     }
 }
