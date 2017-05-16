@@ -2,7 +2,7 @@ package volumecontroller
 
 // package name is smartconn.cc/sibolwolf/volumecontroller
 import (
-    "fmt"
+    "log"
     LED "smartconn.cc/sibolwolf/volumecontroller/led"
     VOL "smartconn.cc/sibolwolf/volumecontroller/volume"
     KEY "smartconn.cc/liugen/input"
@@ -12,7 +12,7 @@ var curvolclass string
 
 func Init() {
     curvolclass = VOL.GetVolumeClass()
-    // fmt.Println(curvolclass)
+    // log.Println(curvolclass)
     switch curvolclass {
     case "class0":
         LED.UpdateLed(0)
@@ -28,7 +28,7 @@ func Init() {
 
     KEY.Connect("readingangel")
     KEY.GetButton("volume").OnPress(func() {
-            fmt.Println("RA got a short key press event for volume")
+            log.Println("RA got a short key press event for volume")
             UpdateVol()
         })
 

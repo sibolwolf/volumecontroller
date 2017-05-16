@@ -1,14 +1,14 @@
 package main
 
 import (
-    "fmt"
+    "log"
     "os"
     "os/signal"
     VolCtrller "smartconn.cc/sibolwolf/volumecontroller"
 )
 
 func main() {
-    fmt.Println("Hello, VolumeController")
+    log.Println("Hello, VolumeController")
 
     VolCtrller.Init()
 

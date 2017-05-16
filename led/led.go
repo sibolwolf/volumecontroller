@@ -1,7 +1,7 @@
 package led
 
 import (
-    "fmt"
+    "log"
     "os/exec"
 )
 
@@ -29,7 +29,7 @@ var ledname = []string{
 }
 
 func GenFilename(led string) string {
-    fmt.Println("Gen filename ...")
+    log.Println("Gen filename ...")
     switch led {
         case ledname[0]:
             return "/sys/class/leds/fun_led0/brightness"
@@ -49,32 +49,32 @@ func GenFilename(led string) string {
 }
 
 func GetLedStatus(filename string) {
-    fmt.Println("Get the vol_ledx status ...")
+    log.Println("Get the vol_ledx status ...")
     cmdget := "cat" + " " + filename
     cmd := exec.Command("/bin/sh", "-c", cmdget)
     bytes, err := cmd.Output()
     if err != nil {
-        fmt.Println("outputerr: " + err.Error())
+        log.Println("outputerr: " + err.Error())
         return
     }
 
-    fmt.Println(filename +" status is: " + string(bytes))
+    log.Println(filename +" status is: " + string(bytes))
 }
 
 func SetLed(filename string, value string) {
-    fmt.Println("Set ledx with new value ...")
+    log.Println("Set ledx with new value ...")
     cmdset := "echo" + " " + value + " " + ">" + filename
-    fmt.Println(cmdset)
+    log.Println(cmdset)
     cmd := exec.Command("/bin/sh", "-c", cmdset)
     _, err := cmd.Output()
     if err != nil {
-        fmt.Println("outputerr: " + err.Error())
+        log.Println("outputerr: " + err.Error())
         return
     }
 }
 
 func UpdateLed(volclass int) {
-    fmt.Println("Update led status according volume class")
+    log.Println("Update led status according volume class")
     vol0_led_filename := GenFilename("vol_led0")
     vol1_led_filename := GenFilename("vol_led1")
     vol2_led_filename := GenFilename("vol_led2")
