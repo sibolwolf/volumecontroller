@@ -36,7 +36,7 @@ func SetVolume(value string) {
 func GetVolumeClass() string {
     currvol := GetVolumeStatus()
     currvol = strings.TrimSpace(currvol)
-    log.Println(currvol)
+    log.Println("Current volume is:" + currvol)
     switch currvol {
     case vollevel[0]:
         log.Println(0)
