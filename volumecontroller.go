@@ -1,10 +1,8 @@
-package main
+package volumecontroller
 
 // package name is smartconn.cc/sibolwolf/volumecontroller
 import (
     "fmt"
-    "os"
-    "os/signal"
     LED "smartconn.cc/sibolwolf/volumecontroller/led"
     VOL "smartconn.cc/sibolwolf/volumecontroller/volume"
     KEY "smartconn.cc/liugen/input"
@@ -27,6 +25,12 @@ func Init() {
     default:
         LED.UpdateLed(0)
     }
+
+    KEY.Connect("readingangel")
+    KEY.GetButton("volume").OnPress(func() {
+            fmt.Println("RA got a short key press event for volume")
+            UpdateVol()
+        })
 
 }
 
@@ -52,25 +56,4 @@ func UpdateVol() {
         VOL.SetVolumeClass(curvolclass)
         LED.UpdateLed(0)
     }
-}
-
-func main() {
-    fmt.Println("Hello, VolumeController")
-
-    Init()
-
-    KEY.Connect("readingangel")
-    KEY.GetButton("volume").OnPress(func() {
-            fmt.Println("RA got a short key press event for volume")
-            UpdateVol()
-        })
-
-    signalChanel := make(chan os.Signal, 1)
-	signal.Notify(signalChanel, os.Interrupt)
-	for {
-		select {
-		case <-signalChanel:
-			return
-		}
-	}
 }
