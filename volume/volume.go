@@ -23,7 +23,7 @@ func GetVolumeStatus() string {
 
 func SetVolume(value string) {
     log.Println("Set the volume ...")
-    cmdset := log.Sprintf("sysint setVolume %s", value)
+    cmdset := log.Printf("sysint setVolume %s", value)
     cmd := exec.Command("/bin/sh", "-c", cmdset)
     bytes, err := cmd.Output()
     if err != nil {
