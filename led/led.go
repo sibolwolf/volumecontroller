@@ -29,7 +29,7 @@ var ledname = []string{
 }
 
 func GenFilename(led string) string {
-    log.Println("Gen filename ...")
+    //log.Println("Gen filename ...")
     switch led {
         case ledname[0]:
             return "/sys/class/leds/fun_led0/brightness"
@@ -49,7 +49,7 @@ func GenFilename(led string) string {
 }
 
 func GetLedStatus(filename string) {
-    log.Println("Get the vol_ledx status ...")
+    //log.Println("Get the vol_ledx status ...")
     cmdget := "cat" + " " + filename
     cmd := exec.Command("/bin/sh", "-c", cmdget)
     bytes, err := cmd.Output()
@@ -62,7 +62,7 @@ func GetLedStatus(filename string) {
 }
 
 func SetLed(filename string, value string) {
-    log.Println("Set ledx with new value ...")
+    //log.Println("Set ledx with new value ...")
     cmdset := "echo" + " " + value + " " + ">" + filename
     log.Println(cmdset)
     cmd := exec.Command("/bin/sh", "-c", cmdset)

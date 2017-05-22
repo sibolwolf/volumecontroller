@@ -12,7 +12,7 @@ var curvolclass string
 
 func Init() {
     curvolclass = VOL.GetVolumeClass()
-    // log.Println(curvolclass)
+    log.Println("Current volume class is", curvolclass)
     switch curvolclass {
     case "class0":
         LED.UpdateLed(0)
